@@ -1,0 +1,35 @@
+/* =====================================================================
+   TOKENS + RESET
+   ===================================================================== */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  /* ---- brand palette (the only four source colours) ---- */
+  --amber:#ffbd59;     /* accent: CTAs, highlights, focus */
+  --white:#ffffff;     /* headings + primary text */
+  --grey:#545454;      /* borders, dividers, disabled — never body text (2.2:1) */
+  --void:#1e1d1d;      /* the stage */
+
+  /* ---- derived from the palette ---- */
+  --void-deep:#151414; /* glow-button body, wells, inputs */
+  --void-up:#272525;   /* raised panels */
+  --mist:#c0bfbf;      /* body copy — white @72% on --void, 9.2:1 */
+  --dim:#9a9999;       /* tertiary copy — white @55% on --void, 5.9:1 */
+  --amber-glow:rgba(255,189,89,.16);
+  --line:rgba(84,84,84,.85);   /* --grey, strong dividers */
+  --line2:rgba(84,84,84,.5);   /* --grey, quiet dividers */
+  --k:1;
+}
+html{background:var(--void);scroll-behavior:smooth;scroll-padding-top:100px;-webkit-text-size-adjust:100%}
+body{font-family:Poppins,Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:#fff;background:var(--void);
+  -webkit-font-smoothing:antialiased;font-size:16px;line-height:1.6;overflow-x:clip}
+a{text-decoration:none;color:inherit}          /* button labels must never underline */
+img,svg{display:block;max-width:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.skip{position:fixed;left:12px;top:-80px;z-index:999;background:var(--amber);color:var(--void);padding:10px 16px;border-radius:12px;font-weight:600}
+.skip:focus{top:12px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+[hidden]{display:none!important}
+.ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}

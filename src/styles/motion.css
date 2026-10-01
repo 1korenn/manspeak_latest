@@ -1,0 +1,61 @@
+/* =====================================================================
+   ENTRANCE TIMELINE — resting states. Uses the individual translate /
+   scale / clip-path properties, NOT transform: transform is already owned
+   by the ring maths and the dialog, so these compose instead of colliding.
+   ===================================================================== */
+html.intro .nav{opacity:0;translate:0 -9px}
+html.intro .brand,html.intro .links a,html.intro .nav .btn,html.intro .burger{opacity:0;translate:0 6px}
+html.intro .badge{opacity:0;translate:0 11px;scale:.985}
+html.intro .h1 .ln{opacity:0;translate:0 15px;clip-path:inset(100% 0 -30% 0)}
+html.intro .sub,html.intro .where{opacity:0;translate:0 10px}
+html.intro .ctas{opacity:0;translate:0 13px;scale:.985}
+html.intro .ring{opacity:0;translate:0 18px;scale:.99}
+html.intro .mock{opacity:0;translate:0 26px}
+html.intro .clipper-stage{opacity:0;scale:.94}
+html.intro .fab{opacity:0;scale:.88}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  html.intro .nav,html.intro .brand,html.intro .links a,html.intro .nav .btn,html.intro .burger,html.intro .badge,
+  html.intro .h1 .ln,html.intro .sub,html.intro .where,html.intro .ctas,html.intro .ring,html.intro .mock,html.intro .fab,html.intro .clipper-stage{
+    opacity:1;translate:none;scale:none;clip-path:none}
+  .navmenu,.burger span{transition:none!important}
+  .fab::after{animation:none}
+  .cutdlg[open]{animation:none}
+  .look img,.btn{transition:none}
+}
+
+/* =====================================================================
+   HERO PARALLAX — layers drift at different rates as the hero scrolls
+   away. Native scroll-driven animation where supported; parallax.js
+   feeds --hero-p (0→1) to the same offsets everywhere else.
+   Uses the individual `translate` property, so it composes with the
+   ring-stage's transform and the entrance timeline's translate.
+   Back to front: stars → ring → clipper → mock (anchored) → copy.
+   ===================================================================== */
+.hero #stA{--px-y:460px}
+.hero #stB{--px-y:330px}
+.ring-stage{--px-y:230px}
+.clipper-stage{--px-y:120px}
+.hero-copy{--px-y:150px}
+
+@keyframes hero-px{to{translate:0 var(--px-y)}}
+@keyframes hero-px-fade{to{translate:0 var(--px-y);opacity:0}}
+
+@media (prefers-reduced-motion:no-preference){
+  @supports ((animation-timeline: view()) and (animation-range: entry)){
+    .hero{view-timeline:--hero block}
+    .hero #stA,.hero #stB,.ring-stage,.clipper-stage{
+      animation:hero-px linear both;
+      animation-timeline:--hero;
+      animation-range:exit-crossing 0% exit-crossing 100%}
+    .hero-copy{
+      animation:hero-px-fade linear both;
+      animation-timeline:--hero;
+      animation-range:exit-crossing 0% exit-crossing 70%}
+  }
+  @supports not ((animation-timeline: view()) and (animation-range: entry)){
+    .hero #stA,.hero #stB,.ring-stage,.clipper-stage{translate:0 calc(var(--px-y) * var(--hero-p,0))}
+    .hero-copy{translate:0 calc(var(--px-y) * var(--hero-p,0));opacity:calc(1 - var(--hero-p,0) * 1.45)}
+  }
+}

@@ -1,0 +1,51 @@
+/* =====================================================================
+   THE GLOW BUTTON (.btn)
+   A dark body with an amber light bank rising from the bottom edge,
+   clipped by the button's own rounded rect (overflow:hidden).
+   The label sits on the dark body, so white text keeps ~17:1 contrast.
+   ===================================================================== */
+.btn{display:grid;place-items:center;color:#fff;position:relative;overflow:hidden;border:0;cursor:pointer;
+  background:linear-gradient(to top,
+    #ffe2b0 1px,#ffd48f 2px,#ffc875 3px,#ffbd59 4px,#f0a63e 5px,
+    #d98a28 6px,#c47a20 7px,#ad6a1c 8px,#94591a 9px,#7a4917 10px,
+    #613b15 12px,#553415 13px,#4a2f15 14px,#3b2715 16px,
+    #2f2116 18px,#261c16 20px,#1d1816 24px,#171515 30px,
+    var(--void-deep) 34px,var(--void-deep) 100%);
+  box-shadow:
+    inset 0 3px 3px -2px rgba(255,225,180,.10),
+    inset 1px 0 0 rgba(255,255,255,.09),
+    inset -1px 0 0 rgba(255,255,255,.09),
+    var(--hair,0 1px 0 rgba(255,200,120,.38)),
+    1px 0 0 rgba(255,200,120,.17),-1px 0 0 rgba(255,200,120,.17),
+    0 0 8px rgba(255,189,89,.10),
+    0 2px 5px -3px rgba(255,189,89,.45);
+  transition:transform .25s,box-shadow .25s,filter .25s}
+.btn::before{content:"";position:absolute;left:22%;right:38%;top:.8px;height:1.9px;z-index:1;filter:blur(.55px);
+  background:linear-gradient(90deg,rgba(255,189,89,0) 0%,rgba(255,189,89,.58) 34%,
+    rgba(255,214,150,.74) 50%,rgba(255,189,89,.58) 66%,rgba(255,189,89,0) 100%)}
+.btn::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;
+  background:linear-gradient(90deg,rgba(255,228,185,.70),rgba(255,228,185,0) 13px),
+             linear-gradient(270deg,rgba(255,228,185,.70),rgba(255,228,185,0) 13px);
+  -webkit-mask:linear-gradient(to top,#000 0,#000 6px,rgba(0,0,0,.40) 12px,
+    rgba(0,0,0,.15) 18px,rgba(0,0,0,.09) 24px,rgba(0,0,0,.02) 30px,rgba(0,0,0,.02) 100%);
+          mask:linear-gradient(to top,#000 0,#000 6px,rgba(0,0,0,.40) 12px,
+    rgba(0,0,0,.15) 18px,rgba(0,0,0,.09) 24px,rgba(0,0,0,.02) 30px,rgba(0,0,0,.02) 100%)}
+.btn span{position:relative;z-index:2;display:block;line-height:1;text-shadow:0 1px 2px rgba(20,12,4,.55)}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.1);
+  box-shadow:inset 0 1px 0 rgba(255,225,180,.55),inset 1px 0 0 rgba(255,210,150,.32),
+             inset -1px 0 0 rgba(255,210,150,.32),0 6px 22px rgba(255,170,60,.42)}
+.btn[disabled]{cursor:progress;filter:saturate(.6) brightness(.9);transform:none}
+/* hero instance: no top streak, no foot hairline */
+.cta2{--hair:0 0 0 transparent;height:54.5px;min-width:150px;padding:0 30px;border-radius:13px;font-size:17px;font-weight:500;letter-spacing:-.01em}
+.cta2::before{display:none}
+/* full-width instance for forms and panels */
+.btn.block{width:100%;height:54px;border-radius:14px;font-size:16px;font-weight:600}
+.btn.block::before{display:none}
+.btn.mid{height:48px;padding:0 24px;border-radius:13px;font-size:15px;font-weight:500}
+.btn.mid::before{display:none}
+
+.ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:54.5px;padding:0 24px;border-radius:13px;
+  border:1px solid var(--line);background:rgba(255,255,255,.02);font-size:16px;font-weight:500;color:#fff;
+  transition:background .2s,border-color .2s}
+.ghost:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.3)}
+.ghost.sm{height:48px;font-size:15px}
