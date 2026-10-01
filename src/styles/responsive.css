@@ -13,7 +13,7 @@
   .about{grid-template-columns:1fr}
   .barber{max-width:460px;aspect-ratio:1/1}
   .foot-in{grid-template-columns:1fr 1fr}
-  .bk-grid{grid-template-columns:1fr}
+  .bk-grid{grid-template-columns:minmax(0,1fr)}
   .bk-sum{position:static}
   .dlg{grid-template-columns:1fr;overflow-y:auto}
   .gal{min-height:0;height:auto;aspect-ratio:4/4.2;max-height:62vh}

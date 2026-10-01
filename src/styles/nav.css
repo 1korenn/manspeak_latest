@@ -2,10 +2,10 @@
    NAV PILL (sticky, floating)
    ===================================================================== */
 .nav{position:fixed;z-index:400;left:0;right:0;margin:0 auto;top:calc(10px + env(safe-area-inset-top,0px));
-  width:min(940px,calc(100% - 24px));height:64px;display:flex;align-items:center;padding:0 12px 0 20px;
+  width:min(940px,calc((100% - 24px) / var(--nav-zoom,1)));height:64px;display:flex;align-items:center;padding:0 12px 0 20px;
   background:transparent;border:0;border-radius:0;
   transition:background-color .3s;
-  zoom:1.36;
+  zoom:var(--nav-zoom,1);
 }
 .nav.scrolled{background:rgba(30,29,29,.82)}
 .brand{display:flex;align-items:center;gap:10px;flex:0 0 auto;border-radius:12px}
@@ -41,14 +41,18 @@
     transition:opacity .24s ease,transform .28s cubic-bezier(.4,0,.2,1),visibility .28s}
   .nav.open .navmenu{opacity:1;visibility:visible;transform:none}
   .links{flex-direction:column;align-items:stretch;gap:2px;margin:0}
-  .links a{font-size:16px;padding:12px 15px;border-radius:12px;width:100%}
+  .links a{display:block;font-size:16px;padding:12px 15px;border-radius:12px}
   .links a.active::after{display:none}
   .links a.active{background:rgba(255,189,89,.1);color:var(--amber)}
-  .search-icon a{width:auto;height:auto;border:0;justify-content:start;padding:12px 15px}
-  .search-icon a::after{content:"Find a cut";font-size:16px;margin-left:10px}
+  .search-icon a{display:flex;align-items:center;gap:10px;width:auto;height:auto;border:0;padding:12px 15px}
+  .search-icon a::after{content:"Find a cut";font-size:16px}
   .nav .btn{width:100%;height:48px;margin:10px 0 0;font-size:16px}
 }
 @media (hover:hover) and (max-width:1000px){
   .burger:hover span{background:#fff}
   .links a:hover{background:rgba(255,255,255,.055);opacity:1}
+}
+/* bigger nav only where there's room for it */
+@media (min-width:1340px){
+  .nav{--nav-zoom:1.36}
 }
