@@ -1,7 +1,7 @@
 /* =====================================================================
    SECTIONS (shared)
    ===================================================================== */
-.sec{padding:clamp(80px,11vw,140px) 0 0}
+.sec{padding:clamp(80px,11vw,70px) 0 0}
 .sec-h{max-width:640px;margin-bottom:clamp(32px,4vw,52px)}
 .sec-h h2,.h2{font-size:clamp(32px,4.2vw,54px);font-weight:800;line-height:1.05;letter-spacing:-.025em;text-wrap:balance}
 .sec-h p{margin-top:16px;color:var(--mist);font-size:clamp(16px,1.3vw,18px);max-width:34em;text-wrap:pretty}
