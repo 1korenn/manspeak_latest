@@ -67,7 +67,6 @@
       <a href="#cuts">Cuts</a>
       <a href="#pricing">Prices</a>
       <a href="#about">About</a>
-      <a href="#faq">FAQ</a>
     </nav>
     <a class="btn" href="#book"><span>Book now</span></a>
   </div>
@@ -78,6 +77,7 @@
 
 <!-- ============================ HERO ============================ -->
 <section class="hero" id="hero" aria-labelledby="h1">
+  <div class="clipper-stage" id="clipperStage" aria-hidden="true"><canvas id="clipper"></canvas></div>
   <div class="stars" id="stA" aria-hidden="true"></div>
   <div class="stars" id="stB" aria-hidden="true"></div>
 
@@ -107,9 +107,15 @@
   <!-- 3D ring of cuts (decorative), the glass clipper floating over it, and the live mini-booker in front -->
   <div class="showcase" id="showcase">
     <div class="ring-stage" aria-hidden="true"><div class="ring" id="ring"></div></div>
-    <div class="clipper-stage" id="clipperStage" aria-hidden="true"><canvas id="clipper"></canvas></div>
 
-    <div class="mock" aria-label="Quick booking">
+   
+  </div>
+</section>
+
+<!-- ============================ SOCIAL PROOF ============================ -->
+<div class="sheet" id="sheet">
+  
+   <div class="mock" aria-label="Quick booking">
       <div class="bar" aria-hidden="true">
         <div class="dots"><i style="background:#ee5c62"></i><i style="background:#f6b719"></i><i style="background:#12c02f"></i></div>
         <div class="omni"><svg class="ico" style="stroke:#fff;stroke-width:2.4"><use href="#i-search"/></svg><span>MansPeak Barbershop · Book a chair</span></div>
@@ -133,10 +139,6 @@
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ============================ SOCIAL PROOF ============================ -->
 <!-- EDIT: replace the rating with your real Google / Facebook rating -->
 <section class="proof" aria-label="Why students book here">
   <div class="wrap proof-in">
@@ -162,25 +164,6 @@
   </div>
 </section>
 
-<!-- ============================ BENEFITS ============================ -->
-<section class="sec" id="how" aria-labelledby="howTitle">
-  <div class="wrap">
-    <header class="sec-h">
-      <h2 id="howTitle">Built around your class schedule</h2>
-      <p>No more lining up after dismissal and hoping for a free chair.</p>
-    </header>
-    <ol class="flow">
-      <li><span class="n">1</span><h3>Book between classes</h3><p>Pick a day, a time and your cut from your phone. It takes about 30 seconds.</p></li>
-      <li><span class="n">2</span><h3>Get your confirmation text</h3><p>Your slot and booking reference arrive by text, so you can show it at the counter.</p></li>
-      <li><span class="n">3</span><h3>Sit straight down</h3><p>Your chair is ready at your time. Most cuts are done in under 45 minutes.</p></li>
-    </ol>
-    <div class="perks">
-      <div class="perk"><svg class="ico"><use href="#i-id"/></svg><p><b>Budget-proof.</b> The same <span data-price>₱150</span> every visit, no surprise add-ons.</p></div>
-      <div class="perk"><svg class="ico"><use href="#i-repeat"/></svg><p><b>Same cut, every time.</b> We note what you got, so next time you just say "same as last."</p></div>
-      <div class="perk"><svg class="ico"><use href="#i-school"/></svg><p><b>Dress-code safe.</b> Ask for the school-friendly version of any cut and we'll keep it within policy.</p></div>
-    </div>
-  </div>
-</section>
 
 <!-- ============================ PRICING ============================ -->
 <!-- EDIT: the price itself lives in src/config.js (CONFIG.price); every [data-price] fills from it -->
@@ -247,24 +230,6 @@
   </div>
 </section>
 
-<!-- ============================ FAQ ============================ -->
-<section class="sec" id="faq" aria-labelledby="faqTitle">
-  <div class="wrap faq">
-    <header class="sec-h">
-      <h2 id="faqTitle">Questions, answered</h2>
-      <p>Anything else? Text us at <a data-link="sms" href="sms:+639123456789" style="color:#fff;text-decoration:underline;text-underline-offset:3px"><span data-bind="phone">0912 345 6789</span></a>.</p>
-    </header>
-    <div>
-      <details class="qa"><summary>Do I need to book, or can I walk in?<i></i></summary><p>Walk-ins are welcome whenever a chair is free, but booked slots always go first. Booking takes about 30 seconds and guarantees your time.</p></details>
-      <details class="qa"><summary>Is it really the same price for every cut?<i></i></summary><p>Yes. Every cut on the menu is <span data-price>₱150</span>, from a buzz cut to a burst-fade mullet. No ID needed and no surprise add-ons.</p></details>
-      <details class="qa"><summary>How do I get my confirmation?<i></i></summary><p>Right after you book, we text a confirmation to the mobile number you entered, with your day, time, cut and booking reference. You can also add it to your calendar from the confirmation screen.</p></details>
-      <details class="qa"><summary>Can I bring a reference photo?<i></i></summary><p>Please do. Save a screenshot of the cut you want, or pick one from our lookbook, and show your barber before we start.</p></details>
-      <details class="qa"><summary>What if I'm running late or need to move my slot?<i></i></summary><p>Text us as soon as you know. We hold your chair for 10 minutes after your time. Rescheduling is free up to 2 hours before.</p></details>
-      <details class="qa"><summary>How long does a cut take?<i></i></summary><p>Between 25 and 50 minutes depending on the cut. Every cut in the lookbook shows its chair time.</p></details>
-      <details class="qa"><summary>How do I pay?<i></i></summary><p>Cash or GCash at the counter after your cut. Nothing to pay when you book online.</p></details>
-    </div>
-  </div>
-</section>
 
 <!-- ============================ FINAL CTA ============================ -->
 <section class="final" aria-labelledby="finalTitle">
@@ -279,6 +244,7 @@
   </div>
 </section>
 
+</div><!-- /sheet -->
 </div><!-- /view-home -->
 
 <!-- ============================ BOOKING PAGE ============================ -->
@@ -399,7 +365,7 @@
       </div>
       <div><h4>Visit</h4><ul><li data-bind="hours">Daily, 10:00 AM to 8:00 PM</li><li><a data-link="map" href="https://www.google.com/maps/search/?api=1&query=MansPeak+Barbershop" target="_blank" rel="noopener">Get directions</a></li></ul></div>
       <div><h4>Contact</h4><ul><li><a data-link="tel" href="tel:+639123456789"><span data-bind="phone">0912 345 6789</span></a></li><li><a data-link="mail" href="mailto:hello@manspeak.ph"><span data-bind="email">hello@manspeak.ph</span></a></li></ul></div>
-      <div><h4>Explore</h4><ul><li><a href="#cuts">Cuts</a></li><li><a href="#pricing">Prices</a></li><li><a href="#book">Book a chair</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+      <div><h4>Explore</h4><ul><li><a href="#cuts">Cuts</a></li><li><a href="#pricing">Prices</a></li><li><a href="#book">Book a chair</a></li></ul></div>
     </div>
     <div class="foot-base"><span>© <span id="yr">2026</span> MansPeak Barbershop</span><span>Cuts pictured are illustrations. Real results in the shop.</span></div>
   </div>

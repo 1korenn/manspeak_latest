@@ -1,29 +1,43 @@
 /* ============================================================
-   PARALLAX FALLBACK — the hero parallax is pure CSS (motion.css)
-   using scroll-driven animations. Browsers without them (Firefox
-   today) get --hero-p, the hero's exit progress 0→1, from here.
-   Only listens while the hero is on screen.
+   HERO PARALLAX — same engine as the reference: the hero is a pinned
+   background while .sheet scrolls over it. Smoothed scroll (lerp .15)
+   drives each layer up at its own rate; the copy fades out by 150px.
    ============================================================ */
-export function initParallaxFallback(){
-  if (window.CSS && CSS.supports('(animation-timeline: view()) and (animation-range: entry)')) return;
+const RATES = { desk: { h1:.4, sub:.25, cta:.15 }, phone: { h1:.3, sub:.2, cta:.1 } };
+
+export function initParallax(){
   if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const hero = document.getElementById('hero');
   if (!hero) return;
+  const q = (s)=> [...hero.querySelectorAll(s)];
+  const L = { h1:q('.h1'), sub:q('.sub, .where'), cta:q('.ctas'), badge:q('.badge'),
+              ring:q('.ring-stage'), clip:q('.clipper-stage') };
 
-  let queued = false;
-  const update = ()=>{
-    queued = false;
-    const r = hero.getBoundingClientRect();
-    const p = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height)));
-    hero.style.setProperty('--hero-p', p.toFixed(4));
-  };
-  const onScroll = ()=>{ if (!queued){ queued = true; requestAnimationFrame(update); } };
+  let cur = 0, raf = 0, touched = false;
+  const set = (els, y, o)=> els.forEach(el=>{
+    el.style.translate = '0 ' + y.toFixed(1) + 'px';
+    if (o != null){ el.style.opacity = o; el.style.pointerEvents = o < .05 ? 'none' : ''; }
+  });
 
-  new IntersectionObserver((entries)=>{
-    entries.forEach(en=>{
-      if (en.isIntersecting) window.addEventListener('scroll', onScroll, { passive: true });
-      else window.removeEventListener('scroll', onScroll);
-    });
-    update();
-  }, { threshold: 0 }).observe(hero);
+  function frame(){
+    const target = window.scrollY;
+    cur += (target - cur) * 0.15;
+    if (Math.abs(target - cur) < 0.3) cur = target;
+    // don't fight the entrance timeline until the user actually scrolls
+    if (!touched && cur < 0.5){ raf = 0; return; }
+    touched = true;
+    const r = innerWidth <= 700 ? RATES.phone : RATES.desk;
+    const fade = Math.max(0, 1 - cur / 150);
+    set(L.h1,  -cur * r.h1,  fade);
+    set(L.sub, -cur * r.sub, fade);
+    set(L.cta, -cur * r.cta, fade);
+    set(L.badge, 0, Math.max(0, 1 - cur / 100));
+    set(L.ring, -cur * 0.15);
+    set(L.clip, -target * 0.15);          // clipper uses raw scroll, as in the reference
+    raf = cur === target ? 0 : requestAnimationFrame(frame);
+  }
+  const kick = ()=>{ if (!raf) raf = requestAnimationFrame(frame); };
+  addEventListener('scroll', kick, { passive: true });
+  addEventListener('resize', kick);
+  kick();
 }

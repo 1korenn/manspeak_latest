@@ -25,37 +25,3 @@ html.intro .fab{opacity:0;scale:.88}
   .look img,.btn{transition:none}
 }
 
-/* =====================================================================
-   HERO PARALLAX — layers drift at different rates as the hero scrolls
-   away. Native scroll-driven animation where supported; parallax.js
-   feeds --hero-p (0→1) to the same offsets everywhere else.
-   Uses the individual `translate` property, so it composes with the
-   ring-stage's transform and the entrance timeline's translate.
-   Back to front: stars → ring → clipper → mock (anchored) → copy.
-   ===================================================================== */
-.hero #stA{--px-y:460px}
-.hero #stB{--px-y:330px}
-.ring-stage{--px-y:230px}
-.clipper-stage{--px-y:120px}
-.hero-copy{--px-y:150px}
-
-@keyframes hero-px{to{translate:0 var(--px-y)}}
-@keyframes hero-px-fade{to{translate:0 var(--px-y);opacity:0}}
-
-@media (prefers-reduced-motion:no-preference){
-  @supports ((animation-timeline: view()) and (animation-range: entry)){
-    .hero{view-timeline:--hero block}
-    .hero #stA,.hero #stB,.ring-stage,.clipper-stage{
-      animation:hero-px linear both;
-      animation-timeline:--hero;
-      animation-range:exit-crossing 0% exit-crossing 100%}
-    .hero-copy{
-      animation:hero-px-fade linear both;
-      animation-timeline:--hero;
-      animation-range:exit-crossing 0% exit-crossing 70%}
-  }
-  @supports not ((animation-timeline: view()) and (animation-range: entry)){
-    .hero #stA,.hero #stB,.ring-stage,.clipper-stage{translate:0 calc(var(--px-y) * var(--hero-p,0))}
-    .hero-copy{translate:0 calc(var(--px-y) * var(--hero-p,0));opacity:calc(1 - var(--hero-p,0) * 1.45)}
-  }
-}

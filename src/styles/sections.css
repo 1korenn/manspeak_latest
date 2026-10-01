@@ -42,19 +42,6 @@
 .look .more svg{width:15px;height:15px;stroke:#fff}
 .look-note{margin-top:20px;font-size:14px;color:var(--dim)}
 
-/* ---- benefits (a real sequence, so it is numbered) ---- */
-.flow{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:0;counter-reset:s;border-top:1px solid var(--line)}
-.flow li{position:relative;padding:32px 32px 8px 0}
-.flow li+li{padding-left:32px;border-left:1px solid var(--line2)}
-.flow .n{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:11px;font-weight:700;font-size:15px;color:var(--void);
-  background:var(--amber)}
-.flow h3{margin-top:18px;font-size:21px;font-weight:700;letter-spacing:-.015em}
-.flow p{margin-top:8px;color:var(--mist);font-size:15.5px;max-width:24em}
-.perks{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.perk{display:flex;gap:14px;align-items:flex-start;font-size:15px;color:var(--mist)}
-.perk svg{width:20px;height:20px;flex:0 0 auto;stroke:var(--amber);margin-top:2px}
-.perk b{color:#fff;font-weight:600}
-
 /* ---- pricing: one flat price, set like a shop-window board ---- */
 .price-card{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:end;
   padding:calc(clamp(28px,4.4vw,56px) + 6px) clamp(24px,4.4vw,56px) clamp(28px,4.4vw,56px);border-radius:26px;overflow:hidden;
@@ -94,23 +81,10 @@ a.ct:hover{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.03)}
 .ct b{display:block;font-weight:600;font-size:15.5px;overflow-wrap:anywhere}
 .socials{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
 
-/* ---- FAQ ---- */
-.faq{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,5vw,72px)}
-.faq .sec-h{position:sticky;top:110px;align-self:start}
-.qa{border-top:1px solid var(--line2)}
-.qa:last-child{border-bottom:1px solid var(--line2)}
-.qa summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 0;font-size:18px;font-weight:600;letter-spacing:-.01em}
-.qa summary::-webkit-details-marker{display:none}
-.qa summary i{position:relative;width:14px;height:14px;flex:0 0 auto}
-.qa summary i::before,.qa summary i::after{content:"";position:absolute;left:0;right:0;top:6.25px;height:1.5px;border-radius:2px;background:#fff;transition:transform .25s}
-.qa summary i::after{transform:rotate(90deg)}
-.qa[open] summary i::after{transform:rotate(0)}
-.qa p{padding:0 40px 24px 0;color:var(--mist);max-width:40em}
-
 /* ---- final CTA ---- */
 .final{position:relative;overflow:hidden;isolation:isolate;margin-top:clamp(90px,12vw,150px);padding:clamp(90px,12vw,150px) 0;text-align:center;
   border-top:1px solid var(--line2);
-  background:radial-gradient(60% 80% at 50% 120%,rgba(255,189,89,.14),rgba(255,189,89,0) 70%),var(--void)}
+    background:radial-gradient(60% 80% at 50% 120%,rgba(255,189,89,.14),rgba(255,189,89,0) 70%)}
 .final h2{font-size:clamp(36px,5.4vw,72px);font-weight:900;line-height:1;letter-spacing:-.02em;text-transform:uppercase;word-spacing:.12em;text-wrap:balance;max-width:14em;margin:0 auto}
 .final p{margin-top:20px;color:var(--mist);font-size:17px}
 .final p b{color:#fff;font-weight:600}
@@ -133,3 +107,10 @@ a.ct:hover{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.03)}
 .fab::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid rgba(255,189,89,.5);animation:pulse 2.8s ease-out infinite}
 @keyframes pulse{0%{transform:scale(1);opacity:.75}70%{transform:scale(1.4);opacity:0}100%{opacity:0}}
 body.booking .fab{display:none}
+
+/* ---- the sheet: every section after the hero scrolls up over it ---- */
+.sheet{position:relative;z-index:2;background:rgba(30,29,29,.6);
+  width:min(calc(100% - 24px), 1280px);margin:0 auto;
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(14px);
+  border-radius:28px 28px 0 0;
+  box-shadow:0 -14px 44px rgba(0,0,0,.55);border-top:1px solid var(--line2)}

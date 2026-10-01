@@ -20,12 +20,16 @@ function sync(){
 export function setHomeActive(on){ state.home = on; sync(); }
 
 export function initHeroMotion(){
-  const hero = document.getElementById('hero');
-  if (hero && 'IntersectionObserver' in window){
-    new IntersectionObserver((entries)=>{
-      entries.forEach(en=>{ state.inView = en.isIntersecting; });
+  // the hero is pinned, so it is "in view" until the sheet has covered it
+  const sheet = document.getElementById('sheet');
+  if (sheet && 'IntersectionObserver' in window){
+    const probe = document.createElement('div');
+    probe.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none';
+    sheet.prepend(probe);   // sheet's top edge
+    new IntersectionObserver(([en])=>{
+      state.inView = en.isIntersecting || en.boundingClientRect.top > 0;
       sync();
-    }, { threshold: 0 }).observe(hero);
+    }, { threshold: 0 }).observe(probe);
   }
   document.addEventListener('visibilitychange', ()=>{ state.pageVisible = !document.hidden; sync(); });
 }
@@ -62,27 +66,6 @@ export function sizeHero(){
   set('--mock-w', mw.toFixed(0) + 'px');
   if (mock) mock.classList.toggle('narrow', mw < 760);
 
-  /* The clipper floats over the ring.
-     Wide screens: off to the right of the headline, its lower half over the
-     ring's right-hand cards, just clear of the mock.
-     Narrower: centred in the strip of ring between the buttons and the mock. */
-  const W = showcase.clientWidth || vw;
-  let s, left, top;
-  if (vw > 1100){
-    s = Math.min(W*0.24, 400);
-    const h = s*1.2;
-    const cx = Math.min(W*0.875, W - s/2 - 16);
-    left = cx - s/2;
-    top = 24 - h/2;
-  } else {
-    s = Math.max(120, Math.min(mockTop*0.95, 240));
-    const h = s*1.2;
-    left = (W - s)/2;
-    top = mockTop*0.58 - h/2;
-  }
-  set('--clip-s', s.toFixed(1) + 'px');
-  set('--clip-x', left.toFixed(1) + 'px');
-  set('--clip-y', top.toFixed(1) + 'px');
   if (clipper) clipper.resize();
 }
 
@@ -101,7 +84,7 @@ export function loadClipper(){
   if (!webglAvailable()){ stage.hidden = true; return; }
   const go = ()=> import('./clipper/scene.js')
     .then(m=>{
-      clipper = m.mountClipper(canvas, stage, document.getElementById('hero'));
+      clipper = m.mountClipper(canvas, stage);
       stage.classList.add('ready');
       sync();
     })

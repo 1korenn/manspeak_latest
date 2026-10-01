@@ -9,15 +9,9 @@
   .proof-in{grid-template-columns:1fr}
   .pf+.pf{border-left:0;border-top:1px solid var(--line2)}
   .pf{padding:18px 4px}
-  .flow{grid-template-columns:1fr}
-  .flow li,.flow li+li{padding:26px 0 22px;border-left:0}
-  .flow li+li{border-top:1px solid var(--line2)}
-  .perks{grid-template-columns:1fr}
   .price-card{grid-template-columns:1fr;align-items:start}
   .about{grid-template-columns:1fr}
   .barber{max-width:460px;aspect-ratio:1/1}
-  .faq{grid-template-columns:1fr}
-  .faq .sec-h{position:static}
   .foot-in{grid-template-columns:1fr 1fr}
   .bk-grid{grid-template-columns:1fr}
   .bk-sum{position:static}
@@ -63,6 +57,4 @@
   .fab{width:54px;height:54px;right:14px;bottom:calc(16px + env(safe-area-inset-bottom,0px))}
   .cutdlg{width:100%;max-height:100dvh;margin:auto 0 0}
   .dlg{border-radius:26px 26px 0 0;max-height:94dvh}
-  .qa summary{font-size:16.5px}
-  .qa p{padding-right:0}
 }

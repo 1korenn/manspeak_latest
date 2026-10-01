@@ -1,14 +1,7 @@
 /* ============================================================
-   THE GLASS CLIPPER — "3D Clipper Drift & Render", ported into the hero.
-
-   - Renders into its own small canvas (#clipper) inside .clipper-stage,
-     transparent everywhere except the clipper, so the ring shows around it.
-   - The glass refracts a warm amber gradient rather than the real page.
-   - Drag to spin (desktop, fine pointer); it keeps its momentum, then
-     eases back into a slow idle drift.
-   - Scroll parallax: as the hero scrolls away the clipper tilts back.
-   - prefers-reduced-motion: no idle drift, no scroll tilt; it renders
-     still, and drag still works.
+   THE GLASS CLIPPER — full-hero canvas, model centred (as in the
+   reference stage). Slow continuous spin + smooth mouse-follow.
+   prefers-reduced-motion: renders still.
    ============================================================ */
 import * as THREE from 'three';
 import { buildClipperGeometry } from './geometry.js';
@@ -19,7 +12,7 @@ const REDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce
 /* the refracted backdrop: palette amber fading into --void */
 const BG_STOPS = [[0, '#6b4615'], [0.45, '#33261a'], [1, '#1e1d1d']];
 
-export function mountClipper(canvas, stage, hero){
+export function mountClipper(canvas, stage){
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'low-power' });
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.setClearColor(0x000000, 0);
@@ -94,10 +87,12 @@ export function mountClipper(canvas, stage, hero){
     ctx.fillStyle = grd; ctx.fillRect(0, 0, W, H);
     bgTexture.needsUpdate = true;
 
-    // fit: the model is normalised to 1 unit on its longest side (its height)
+    // reference sizing; centred horizontally, ~48.8% down (45% on phones)
     const visH = 2 * Math.tan(camera.fov * Math.PI / 360) * camera.position.z;
-    const fit = Math.min(visH, visH * camera.aspect) * 0.84;
-    pivot.scale.setScalar(fit);
+    const phone = w < 768 || w / h < 1;
+    pivot.position.set(0, (0.5 - (phone ? 0.45 : 0.488)) * visH, 0);
+    const px = Math.min(h * 0.44, w * (phone ? 0.45 : 0.29));
+    pivot.scale.setScalar((px / h) * visH * 1.5);
     render();
   }
 
@@ -111,64 +106,27 @@ export function mountClipper(canvas, stage, hero){
     renderer.autoClear = true;
   }
 
-  /* ---------------- drag to spin ---------------- */
-  const Y = new THREE.Vector3(0,1,0), X = new THREE.Vector3(1,0,0);
-  const qa = new THREE.Quaternion(), qb = new THREE.Quaternion();
-  const turn = (dx, dy)=>{
-    spinner.quaternion.premultiply(qa.setFromAxisAngle(Y, dx)).premultiply(qb.setFromAxisAngle(X, dy));
-  };
-  let dragging = false, lastX = 0, lastY = 0, velX = 0, velY = 0, lastDragTime = performance.now();
-  stage.addEventListener('pointerdown', (e)=>{
-    dragging = true; stage.setPointerCapture(e.pointerId);
-    lastX = e.clientX; lastY = e.clientY; velX = velY = 0;
-    stage.classList.add('dragging');
-  });
-  stage.addEventListener('pointermove', (e)=>{
-    if (!dragging) return;
-    velX = (e.clientX - lastX) * 0.008; velY = (e.clientY - lastY) * 0.008;
-    lastX = e.clientX; lastY = e.clientY;
-    turn(velX, velY);
-    lastDragTime = performance.now();
-    if (!running) render();
-  });
-  const endDrag = ()=>{ dragging = false; stage.classList.remove('dragging'); lastDragTime = performance.now(); };
-  stage.addEventListener('pointerup', endDrag);
-  stage.addEventListener('pointercancel', endDrag);
-
-  /* ---------------- scroll tilt (part of the hero parallax) ---------------- */
-  let tilt = 0;
-  const scrollProgress = ()=>{
-    if (!hero || REDUCED) return 0;
-    const r = hero.getBoundingClientRect();
-    return Math.min(1, Math.max(0, -r.top / Math.max(1, r.height)));
-  };
+  /* ---------------- mouse follow ---------------- */
+  let mx = 0, my = 0;
+  window.addEventListener('mousemove', (e)=>{
+    mx = (e.clientX / window.innerWidth) * 2 - 1;
+    my = (e.clientY / window.innerHeight) * 2 - 1;
+  }, { passive: true });
 
   /* ---------------- loop ---------------- */
   let running = false, raf = 0, lastT = 0;
   function tick(now){
     raf = requestAnimationFrame(tick);
-    const dt60 = Math.min((now - lastT) / 1000, 0.1) * 60;
+    const dt = Math.min((now - lastT) / 1000, 0.1);
     lastT = now;
-
-    if (!dragging){
-      if (Math.abs(velX) > 0.0001 || Math.abs(velY) > 0.0001){
-        turn(velX, velY);                              // momentum after a flick
-        const damp = Math.pow(0.94, dt60); velX *= damp; velY *= damp;
-      }
-      const idle = (now - lastDragTime) / 1000;
-      if (idle > 0.6 && !REDUCED){                     // ease back into the drift
-        const blend = Math.min(1, idle - 0.6);
-        turn(0.0035 * blend * dt60, 0.0012 * blend * dt60);
-      }
-    }
-    // tilt back as the hero leaves, smoothed so it never snaps
-    tilt += (scrollProgress() - tilt) * Math.min(1, 0.12 * dt60);
-    pivot.rotation.set(tilt * 0.75, 0, -tilt * 0.3);
+    spinner.rotation.y += 0.15 * dt;                                     // slow spin
+    mesh.rotation.y = THREE.MathUtils.lerp(mesh.rotation.y, mx * 1.0, 5 * dt);  // follow the cursor
+    mesh.rotation.x = THREE.MathUtils.lerp(mesh.rotation.x, my * 0.5, 5 * dt);
     render();
   }
 
   function start(){
-    if (REDUCED){ render(); return; }   // still image; drag re-renders on demand
+    if (REDUCED){ render(); return; }   // still image
     if (running) return;
     running = true; lastT = performance.now();
     raf = requestAnimationFrame(tick);

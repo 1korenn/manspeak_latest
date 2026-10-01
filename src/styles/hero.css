@@ -79,8 +79,8 @@ a.chip:hover{border-color:rgba(255,255,255,.25)}
 .t-big{font-weight:900;text-transform:uppercase;line-height:.96;letter-spacing:-.015em;white-space:nowrap;transform:scaleX(.875);transform-origin:left center}
 .t-serif{font-family:"Playfair Display",Georgia,serif;font-weight:600;line-height:1.02;letter-spacing:.01em;white-space:nowrap}
 
-.mock{position:absolute;left:0;right:0;margin:0 auto;top:var(--mock-top,260px);bottom:0;width:var(--mock-w,842px);z-index:2;
-  border-radius:26px 26px 0 0;overflow:hidden;box-shadow:0 -14px 44px rgba(0,0,0,.55)}
+.mock{position:relative;width:calc(100% - 48px);height:360px;margin:24px auto 0;z-index:2;
+  border-radius:26px;overflow:hidden;box-shadow:0 14px 44px rgba(0,0,0,.55)}
 .mock::before{content:"";position:absolute;left:0;right:0;top:42px;bottom:0;background:rgba(30,29,29,.86)}
 .bar{position:absolute;left:0;top:0;width:100%;height:42px;display:flex;align-items:center;padding:0 24px;
   background:linear-gradient(180deg,rgba(48,45,44,.55),rgba(36,34,33,.65));
@@ -125,14 +125,10 @@ a.chip:hover{border-color:rgba(255,255,255,.25)}
 .mock.narrow .mb-days::-webkit-scrollbar{display:none}
 .mock.narrow .mb-day{flex:0 0 58px}
 
-/* ---- the glass clipper: floats over the ring, between the cards and the mock ----
-   Position and size come from sizeHero() as --clip-x / --clip-y / --clip-s. */
-.clipper-stage{position:absolute;z-index:2;left:var(--clip-x,72%);top:var(--clip-y,320px);
-  width:var(--clip-s,320px);height:calc(var(--clip-s,320px) * 1.2);pointer-events:none}
+/* ---- the hero is the background: pinned, while .sheet scrolls over it ---- */
+.hero{position:sticky;top:0;height:100vh;height:100svh;z-index:0}
+/* ---- the glass clipper: full-hero canvas, model centred, behind ring + copy ---- */
+.clipper-stage{position:absolute;inset:0;z-index:0;pointer-events:none}
 .clipper-stage canvas{display:block;width:100%;height:100%;opacity:0;transition:opacity .9s cubic-bezier(.16,1,.3,1)}
 .clipper-stage.ready canvas{opacity:1}
-/* drag-to-spin only where the clipper sits clear of the copy, and only with a mouse/trackpad */
-@media (pointer:fine) and (min-width:1101px){
-  .clipper-stage.ready{pointer-events:auto;cursor:grab;touch-action:none}
-  .clipper-stage.dragging{cursor:grabbing}
-}
+.hero-copy,.showcase{will-change:translate}

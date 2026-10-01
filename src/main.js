@@ -13,7 +13,7 @@ import { initBookingForm } from './features/booking.js';
 import { initBurger, initScrollFx } from './features/nav.js';
 import { initRouter } from './features/router.js';
 import { runEntrance } from './features/entrance.js';
-import { initParallaxFallback } from './features/parallax.js';
+import { initParallax } from './features/parallax.js';
 import { refreshAvailability, onAvailabilityChange } from './lib/availability.js';
 
 function boot(){
@@ -47,7 +47,7 @@ function boot(){
   initBurger();
   initScrollFx();
   initHeroMotion();
-  initParallaxFallback();
+  initParallax();
 
   // decides the view, and with it whether the ring/clipper should run
   initRouter();
