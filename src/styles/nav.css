@@ -2,10 +2,11 @@
    NAV PILL (sticky, floating)
    ===================================================================== */
 .nav{position:fixed;z-index:400;left:0;right:0;margin:0 auto;top:calc(10px + env(safe-area-inset-top,0px));
-  width:min(760px,calc(100% - 24px));height:64px;border-radius:32px;display:flex;align-items:center;padding:0 12px 0 20px;
-  background:rgba(255,255,255,.008);border:1px solid rgba(255,255,255,.105);
-  -webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.03);transition:background-color .3s}
+  width:min(940px,calc(100% - 24px));height:64px;display:flex;align-items:center;padding:0 12px 0 20px;
+  background:transparent;border:0;border-radius:0;
+  transition:background-color .3s;
+  zoom:1.36;
+}
 .nav.scrolled{background:rgba(30,29,29,.82)}
 .brand{display:flex;align-items:center;gap:10px;flex:0 0 auto;border-radius:12px}
 .mark{width:26px;height:26px;filter:drop-shadow(0 0 6px rgba(255,189,89,.55))}
@@ -13,13 +14,17 @@
 .wm .kick{display:block;font-size:5.6px;font-weight:600;letter-spacing:.34em;opacity:.9;margin:0 0 3px 1px}
 .wm .name{display:block;font-weight:900;font-size:19px;letter-spacing:-.01em}
 .navmenu{display:contents}
-.links{display:flex;align-items:center;gap:28px;margin-left:auto}
-.links a{font-size:14px;color:rgba(255,255,255,.9);white-space:nowrap;transition:opacity .25s}
+.links{display:flex;align-items:center;gap:26px;margin-left:auto;list-style:none}
+.links a{position:relative;font-size:14px;color:rgba(255,255,255,.9);white-space:nowrap;transition:opacity .25s,color .25s}
 .links a:hover{opacity:.65}
+.links a.active{color:#fff;font-weight:600}
+.links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;border-radius:2px;background:var(--amber)}
+.search-icon a{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;border:1px solid var(--line2)}
+.search-icon .ico{width:16px;height:16px;stroke:currentColor}
 .nav .btn{margin-left:28px;width:125.5px;height:39.5px;border-radius:14px;font-size:14px;font-weight:500;letter-spacing:-.005em;flex:0 0 auto}
 .burger{display:none}
 
-@media (max-width:860px){
+@media (max-width:1000px){
   .nav{width:min(620px,calc(100% - 24px));height:58px;padding:0 7px 0 16px}
   .burger{display:grid;place-content:center;gap:4px;margin-left:auto;width:44px;height:44px;border-radius:14px;
     -webkit-tap-highlight-color:transparent}
@@ -36,10 +41,14 @@
     transition:opacity .24s ease,transform .28s cubic-bezier(.4,0,.2,1),visibility .28s}
   .nav.open .navmenu{opacity:1;visibility:visible;transform:none}
   .links{flex-direction:column;align-items:stretch;gap:2px;margin:0}
-  .links a{font-size:16px;padding:12px 15px;border-radius:12px}
+  .links a{font-size:16px;padding:12px 15px;border-radius:12px;width:100%}
+  .links a.active::after{display:none}
+  .links a.active{background:rgba(255,189,89,.1);color:var(--amber)}
+  .search-icon a{width:auto;height:auto;border:0;justify-content:start;padding:12px 15px}
+  .search-icon a::after{content:"Find a cut";font-size:16px;margin-left:10px}
   .nav .btn{width:100%;height:48px;margin:10px 0 0;font-size:16px}
 }
-@media (hover:hover) and (max-width:860px){
+@media (hover:hover) and (max-width:1000px){
   .burger:hover span{background:#fff}
   .links a:hover{background:rgba(255,255,255,.055);opacity:1}
 }

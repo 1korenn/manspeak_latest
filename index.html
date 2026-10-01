@@ -61,15 +61,20 @@
     </svg>
     <span class="wm"><span class="kick">BARBERSHOP</span><span class="name">MANSPEAK</span></span>
   </a>
-  <button class="burger" type="button" aria-label="Opens menu" aria-expanded="false" aria-controls="navmenu"><span></span><span></span><span></span></button>
+    <!-- ***** Menu Start ***** -->
   <div class="navmenu" id="navmenu">
-    <nav class="links" id="links" aria-label="Main">
-      <a href="#cuts">Cuts</a>
-      <a href="#pricing">Prices</a>
-      <a href="#about">About</a>
-    </nav>
+    <ul class="links" id="links">
+      <li><a href="#top" class="active" aria-current="true">Home</a></li>
+      <li><a href="#cuts">Cuts</a></li>
+      <li><a href="#pricing">Prices</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li class="search-icon"><a href="#cuts" aria-label="Find a cut"><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg></a></li>
+    </ul>
     <a class="btn" href="#book"><span>Book now</span></a>
   </div>
+  <button class="burger menu-trigger" type="button" aria-label="Opens menu" aria-expanded="false" aria-controls="navmenu"><span></span><span></span><span></span></button>
+  <!-- ***** Menu End ***** -->
 </header>
 
 <main id="main">
@@ -214,7 +219,7 @@
           <li><b>MansPeak opens.</b> One chair, one fair price, and word of mouth doing the rest.</li>
           <li><b>Now online.</b> Book from your phone, get a text, skip the line.</li>
         </ol>
-        <div class="contact">
+        <div class="contact" id="contact">
           <a class="ct" data-link="mail" href="mailto:hello@manspeak.ph"><svg class="ico"><use href="#i-mail"/></svg><div><span>Email</span><b data-bind="email">hello@manspeak.ph</b></div></a>
           <a class="ct" data-link="tel" href="tel:+639123456789"><svg class="ico"><use href="#i-phone"/></svg><div><span>Call or text</span><b data-bind="phone">0912 345 6789</b></div></a>
           <a class="ct" data-link="map" href="https://www.google.com/maps/search/?api=1&query=MansPeak+Barbershop" target="_blank" rel="noopener"><svg class="ico"><use href="#i-pin"/></svg><div><span>Find us</span><b data-bind="address">123 Your Street, Your City</b></div></a>
