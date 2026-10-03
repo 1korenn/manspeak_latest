@@ -4,7 +4,10 @@
    clipped by the button's own rounded rect (overflow:hidden).
    The label sits on the dark body, so white text keeps ~17:1 contrast.
    ===================================================================== */
-.btn{display:grid;place-items:center;color:#fff;position:relative;overflow:hidden;border:0;cursor:pointer;
+
+   /* Gradient   */
+
+/* .btn{display:grid;place-items:center;color:#fff;position:relative;overflow:hidden;border:0;cursor:pointer;
   background:linear-gradient(to top,
     #ffe2b0 1px,#ffd48f 2px,#ffc875 3px,#ffbd59 4px,#f0a63e 5px,
     #d98a28 6px,#c47a20 7px,#ad6a1c 8px,#94591a 9px,#7a4917 10px,
@@ -14,15 +17,21 @@
   box-shadow:
     inset 0 3px 3px -2px rgba(255,225,180,.10),
     inset 1px 0 0 rgba(255,255,255,.09),
-    inset -1px 0 0 rgba(255,255,255,.09),
-    var(--hair,0 1px 0 rgba(255,200,120,.38)),
+    inset -1px 0 0 rgba(255,255,255,.09), 
+        var(--hair,0 1px 0 rgba(255,200,120,.38)),
     1px 0 0 rgba(255,200,120,.17),-1px 0 0 rgba(255,200,120,.17),
     0 0 8px rgba(255,189,89,.10),
     0 2px 5px -3px rgba(255,189,89,.45);
-  transition:transform .25s,box-shadow .25s,filter .25s}
+  transition:transform .25s,box-shadow .25s,filter .25s}  */
+.btn{display:grid;place-items:center;position:relative;border:0;cursor:pointer;
+  background:var(--amber);color:var(--void);
+  transition:background-color .2s}
+.btn span{position:relative;display:block;line-height:1}
+.btn:hover{background:#d4a052}  
+
 .btn::before{content:"";position:absolute;left:22%;right:38%;top:.8px;height:1.9px;z-index:1;filter:blur(.55px);
   background:linear-gradient(90deg,rgba(255,189,89,0) 0%,rgba(255,189,89,.58) 34%,
-    rgba(255,214,150,.74) 50%,rgba(255,189,89,.58) 66%,rgba(255,189,89,0) 100%)}
+    rgba(198, 151, 75, 0.74) 50%,rgba(255,189,89,.58) 66%,rgba(255,189,89,0) 100%)}
 .btn::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;
   background:linear-gradient(90deg,rgba(255,228,185,.70),rgba(255,228,185,0) 13px),
              linear-gradient(270deg,rgba(255,228,185,.70),rgba(255,228,185,0) 13px);

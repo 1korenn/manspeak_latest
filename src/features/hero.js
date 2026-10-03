@@ -44,14 +44,14 @@ export function sizeHero(){
   let k, ringY, mockTop, mv, mw, showMt;
   if (phone){
     k = Math.max(0.62, Math.min(vw/560, 0.8));
-    ringY = -420*k;
+    ringY = -470*k;
     mockTop = 250*k;
     mv = 300;
     mw = vw - 24;
     showMt = -34*k;
   } else {
     k = Math.max(Math.min(vw/1172, 1.32), Math.min(vw/1560, 1.0));
-    ringY = -330*k;
+    ringY = -470*k;
     mockTop = 222*k;
     mv = Math.max(230, 196*k);
     mw = Math.min(Math.max(842*k, 0.84*vw), vw - 32, 1180);

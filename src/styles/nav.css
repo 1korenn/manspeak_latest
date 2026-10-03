@@ -2,7 +2,7 @@
    NAV PILL (sticky, floating)
    ===================================================================== */
 .nav{position:fixed;z-index:400;left:0;right:0;margin:0 auto;top:calc(10px + env(safe-area-inset-top,0px));
-  width:min(940px,calc((100% - 24px) / var(--nav-zoom,1)));height:64px;display:flex;align-items:center;padding:0 12px 0 20px;
+    width:calc((100% - 24px) / var(--nav-zoom,1));height:64px;display:flex;align-items:center;padding:0 12px 0 20px;
   background:transparent;border:0;border-radius:0;
   transition:background-color .3s;
   zoom:var(--nav-zoom,1);
@@ -54,5 +54,5 @@
 }
 /* bigger nav only where there's room for it */
 @media (min-width:1340px){
-  .nav{--nav-zoom:1.36}
+  .nav{--nav-zoom:1.26}
 }

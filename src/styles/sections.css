@@ -109,7 +109,7 @@ a.ct:hover{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.03)}
 body.booking .fab{display:none}
 
 /* ---- the sheet: every section after the hero scrolls up over it ---- */
-.sheet{position:relative;z-index:2;background:rgba(30,29,29,.6);
+.sheet{position:relative;z-index:2;background:rgba(12, 12, 12, 0.6);
   width:min(calc(100% - 24px), 1280px);margin:0 auto;
   -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(14px);
   border-radius:28px 28px 0 0;

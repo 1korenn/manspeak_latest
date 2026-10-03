@@ -7,7 +7,7 @@
   --amber:#ffbd59;     /* accent: CTAs, highlights, focus */
   --white:#ffffff;     /* headings + primary text */
   --grey:#545454;      /* borders, dividers, disabled — never body text (2.2:1) */
-  --void:#100f0f;      /* the stage */
+  --void:#080808;      /* the stage */
 
   /* ---- derived from the palette ---- */
   --void-deep:#151414; /* glow-button body, wells, inputs */
